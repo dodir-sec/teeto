@@ -1,5 +1,8 @@
 (async function () {
+
   let paramNameSet = [];
+  let pathResults = new Set;
+
   let scripts = document.getElementsByTagName("script");
   let pageContent = document.documentElement.outerHTML;
   let regex1 = /(?<=(\"|\'|\`))\/[a-zA-Z0-9_?&=\/\-\#\.]*(?=(\"|\'|\`))/g;
@@ -8,7 +11,6 @@
 
   let regexList = [regex1, regex2, regex3];
 
-  let pathResults = new Set;
   const baseUrl = extractDomain(window.location.origin)
   const nodeModulesRegex = /node_modules/;
 
@@ -20,10 +22,9 @@ await getDomainData(baseUrl)
     absoluteUrl = deleteTrailingSlashes(absoluteUrl)
     const exists = Array.from(pathResults).some(result => result.endpoint === absoluteUrl);
     if (!nodeModulesRegex.test(absoluteUrl) && !exists) {
-      pathResults.add({ endpoint: absoluteUrl, source: source });
+      pathResults.add({ endpoint: window.location.protocol+'//'+absoluteUrl, source: source });
     }
   }
-
 
   function fetchAndTestRegex(scriptSrc) {
     fetch(scriptSrc)
@@ -109,12 +110,10 @@ await getDomainData(baseUrl)
     });
   }
 
-  new Promise(resolve => setTimeout(resolve, 3e3)).then(() =>
-    chrome.runtime.sendMessage({ action: "returnResults", data: writeResults(), params: paramNameSet }))
-
-  // new Promise(resolve => setTimeout(resolve, 6e3)).then(() =>
-  //   chrome.runtime.sendMessage({ action: "returnParams", data: paramNameSet }))
-
+  new Promise(resolve => setTimeout(resolve, 3e3)).then(() =>{
+    const curRef=  window.location.href
+    getUrlParams(curRef)
+    chrome.runtime.sendMessage({ action: "returnResults", data: writeResults(), params: paramNameSet })})
 })();
 
 function deleteTrailingSlashes(url) {

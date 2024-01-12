@@ -14,12 +14,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             .catch(error => sendResponse({ error: error.toString() }));
         return true; // indicate we will send the response asynchronously
     } else if (request.action === "analyzeEndpoints") {
-        // TODO: Perform any additional analysis on the endpoints
-        console.log('Endpoints:', request.endpoints);
         sendResponse({ message: "Endpoints received" });
     } else if (request.action === "analyzeSecrets") {
-        // TODO: Perform any additional analysis on the secrets
-        console.log('Secrets:', request.secrets);
         sendResponse({ message: "Secrets received" });
     }
 });

@@ -19,7 +19,6 @@ async function getCurrentDomain() {
   });
 }
 
-
 function initializeDropdowns(dropdownIds) {
   dropdownIds.forEach(id => {
     const dropdown = document.getElementById(id);
@@ -61,7 +60,6 @@ async function setupDomainSpecificListeners(domain) {
 }
 
 function downloadAllDataInXlsx(data, domainName) {
-  // Create a new workbook
   let workbook = XLSX.utils.book_new();
 
   // Add a sheet for each data type
@@ -76,14 +74,13 @@ function downloadAllDataInXlsx(data, domainName) {
   }
 
   if (data.params && data.params.length > 0) {
-    // Converting params to a format suitable for SheetJS
     let paramsFormatted = data.params.map(param => ({ Param: param }));
     let wsParams = XLSX.utils.json_to_sheet(paramsFormatted);
     XLSX.utils.book_append_sheet(workbook, wsParams, 'Params');
   }
 
   // Generate and save the file
-  const fileName = `${domainName}-data.xlsx`; // Use the domain name in the file name
+  const fileName = `${domainName}-data.xlsx`; 
   XLSX.writeFile(workbook, fileName);
 }
 
@@ -137,13 +134,13 @@ function initializeDropdown(dropdown) {
   });
 }
 
-function copyData(dataArray, mapFunction) {
+async function copyData(dataArray, mapFunction) {
   if (!dataArray) {
     console.error(`Data not found`);
     return;
   }
   const text = dataArray.map(mapFunction).join('\n');
-  copyToClipboard(text);
+  await copyToClipboard(text);
 }
 
 function exportData(dataArray, headers, mapFunction) {
@@ -167,11 +164,14 @@ function copyParamsAsQuery(params) {
   copyToClipboard(queryString);
 }
 
-function copyToClipboard(text) {
-  navigator.clipboard.writeText(text).then(() => {
+async function copyToClipboard(text) {
+  try{
+    await navigator.clipboard.writeText(text)
     document.getElementById('copy-msg').style.display = 'flex';
     setTimeout(() => document.getElementById('copy-msg').style.display = 'none', 1000);
-  }).catch(error => console.error('Error copying text: ', error));
+  }catch(err){
+    error => console.error('Error copying text: ', error)
+  }
 }
 
 function saveAs(blob, filename) {

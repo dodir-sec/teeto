@@ -21,6 +21,28 @@
 .footer-end {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 5px;
 
+}
+
+.donate {
+    display: flex;
+    align-items: center;
+    padding: 2px 5px;
+    margin-right: 18px;
+    text-decoration: none;
+    font-size: 12px;
+    color: white;
+    background-color: rgb(62, 177, 253);
+    border-radius: 5px;
+    font-family: NotoSansJP-Regular;
+    justify-content: center;
+    gap: 5px;
+    width: 120px;
+    height: 25px;
+}
+
+.donate-img {
+    font-size: 16px;
 }

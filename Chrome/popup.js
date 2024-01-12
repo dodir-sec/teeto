@@ -1,7 +1,6 @@
 
 loadDataForCurrentDomain();
 
-// Main Functions
 async function loadDataForCurrentDomain() {
   try {
     const domain = await getCurrentTabDomain();
@@ -9,7 +8,6 @@ async function loadDataForCurrentDomain() {
 
     const domainData = await getDomainData(domain);
     if (domainData && (domainData.endpoints.length > 0 || domainData.secrets.length > 0 || domainData.params.length > 0)) {
-      // Data exists for this domain, display the data container
       displayDataContainer();
       document.getElementById('clear-results').style.display = "block";
       document.getElementById('download-all-data').style.display = "block";
@@ -18,7 +16,6 @@ async function loadDataForCurrentDomain() {
       loadDomainDataToUI(domainData['secrets'], 'secrets');
       loadDomainDataToUI(domainData['params'], 'params');
     } else {
-      // No data for this domain, display the start container
       displayStartContainer();
     }
   } catch (error) {
@@ -34,13 +31,12 @@ async function initializeDomainData(domain) {
     }
   } catch (error) {
     console.error('Error initializing domain data:', error);
-    // Handle error appropriately
   }
 }
 
 function loadDomainDataToUI(dataArray, dataType) {
   let resultsDiv = document.getElementById(dataType + "-results");
-  resultsDiv.textContent = ''; // Clear the div here
+  resultsDiv.textContent = ''; 
 
   if (dataArray && dataArray.length > 0) {
     dataArray.forEach(function (dataObj) {
@@ -48,7 +44,6 @@ function loadDomainDataToUI(dataArray, dataType) {
     });
   } else {
     resultsDiv.style.display = 'flex';
-    // resultsDiv.textContent = 'No ' + dataType + ' found.';
     resultsDiv.innerHTML = '<img class="nothing-found" src="imgs/7486754.png" >'
     resultsDiv.style.alignItems = 'center';
     resultsDiv.style.justifyContent = 'center';
@@ -90,12 +85,10 @@ document.getElementById('find-endpoints').addEventListener('click', async functi
       await initializeDomainData(domain);
 
       // Execute scripts separately
-      console.log('Executing endpoint finder');
       await executeEndpointFinder(tabId);
 
       await waitForEndpointResults();
 
-      console.log('Executing secrets finder');
       await executeSecretsFinder(tabId);
 
       waitForSecretsResults();
@@ -106,7 +99,6 @@ document.getElementById('find-endpoints').addEventListener('click', async functi
     }
   } catch (error) {
     console.error('Error in find-endpoints event listener:', error);
-    // Handle error appropriately
   }
 });
 
@@ -127,12 +119,10 @@ document.getElementById('scan-again').addEventListener('click', async function (
       const tabId = tabs[0].id;
 
       // Execute scripts separately
-      console.log('Executing endpoint finder');
       await executeEndpointFinder(tabId);
 
       await waitForEndpointResults();
 
-      console.log('Executing secrets finder');
       await executeSecretsFinder(tabId);
 
       waitForSecretsResults();
@@ -173,10 +163,8 @@ async function executeEndpointFinder(tabId) {
       target: { tabId: tabId },
       files: ['endpoint_finder.js'],      
     });
-    console.log('Endpoint Finder Script Executed');
   } catch (error) {
     console.error('Error executing Endpoint Finder Script:', error);
-    // Handle error appropriately
   }
 }
 
@@ -186,10 +174,8 @@ async function executeSecretsFinder(tabId) {
       target: { tabId: tabId },
       files: ['secrets_finder.js']
     });
-    console.log('Secrets Finder Script Executed');
   } catch (error) {
     console.error('Error executing Secrets Finder Script:', error);
-    // Handle error appropriately
   }
 }
 
@@ -217,26 +203,22 @@ document.getElementById('clear-results').addEventListener('click', function () {
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  console.log("Received data for", request.action, request.data);
 
   switch (request.action) {
     case "returnResults":
       handleReturnResults(request).then(() => {
-        console.log("Handled returnResults");
       }).catch(error => {
         console.error("Error handling returnResults", error);
       });
       break;
     case "returnParams":
       handleReturnParams(request).then(() => {
-        console.log("Handled returnParams");
       }).catch(error => {
         console.error("Error handling returnParams", error);
       });
       break;
     case "returnSecrets":
       handleReturnSecrets(request).then(() => {
-        console.log("Handled returnSecrets");
       }).catch(error => {
         console.error("Error handling returnSecrets", error);
       });
@@ -255,7 +237,7 @@ async function handleReturnResults(request) {
 
   let uniqueEndpoints = Array.from(new Set(request.data.map(JSON.stringify))).map(JSON.parse);
 
-  if (uniqueEndpoints.length === 0) {
+  if (!uniqueEndpoints?.length) {
     displayNoDataFound(resultsDiv, 'endpoints');
     document.getElementById('endpoints-loader').style.display = "none";
     return;
@@ -289,7 +271,7 @@ async function handleReturnParams(params) {
   let paramsDiv = document.getElementById('params-results');
 
   let uniqueParams = Array.from(new Set(params.map(JSON.stringify))).map(JSON.parse);
-  if (uniqueParams.length === 0) {
+  if (!uniqueParams?.length) {
     displayNoDataFound(paramsDiv, 'params');
     document.getElementById('params-loader').style.display = "none";
     return [];
@@ -306,12 +288,11 @@ async function handleReturnParams(params) {
 }
 
 async function handleReturnSecrets(request) {
-  console.log('Secrets:', request.data);
   let secretsDiv = document.getElementById('secrets-results');
 
   let uniqueSecrets = Array.from(new Set(request.data.map(JSON.stringify))).map(JSON.parse);
 
-  if (uniqueSecrets.length === 0) {
+  if (!uniqueSecrets?.length) {
     displayNoDataFound(secretsDiv, 'secrets');
     document.getElementById('secrets-loader').style.display = "none";
     document.getElementById('loading-progress').style.display = "none";
@@ -346,10 +327,11 @@ function appendEndpointToResultsDiv(endpointObj, resultsDiv) {
   var a = document.createElement('a');
   a.classList.add('url-link');
   a.textContent = endpointObj.endpoint;
-  a.href = "#";
+  a.href = endpointObj.endpoint;
+  a.target= '_blank"'
   a.addEventListener('click', function (e) {
     e.preventDefault();
-    chrome.tabs.create({ url: endpointObj.endpoint });
+    chrome.tabs.create({ url: a.href });
   });
 
   endpointElement.appendChild(a);
@@ -424,7 +406,6 @@ async function setDomainData(domain, data) {
 }
 
 function displayNoDataFound(element, dataType) {
-  // element.textContent = `No ${dataType} found.`;
   element.innerHTML = '<img class="nothing-found" src="imgs/7486754.png" >'
   element.style.display = 'flex';
   element.style.alignItems = 'center';

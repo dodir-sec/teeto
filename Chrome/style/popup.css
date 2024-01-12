@@ -21,3 +21,13 @@
   display: flex;
 }
 
+.donate{
+  position: absolute;
+  right: 0;
+  height: 48px;
+}
+
+.donate-img{
+height: 100%;
+}
+

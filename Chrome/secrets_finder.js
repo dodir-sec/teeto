@@ -39,8 +39,10 @@
     { "Twitter OAuth": "[t|T][w|W][i|I][t|T][t|T][e|E][r|R].*['|\"][0-9a-zA-Z]{35},44}['|\"]" }
   ]
   const baseUrl = extractDomain(window.location.origin)
-
+  const pageContent = document.documentElement.outerHTML;
   let secretsResults = new Set;
+
+
   getDomainData(baseUrl)
   function addSecret(secretToAdd) {
     if (!isExist(secretToAdd.secret)) {
@@ -72,8 +74,6 @@
     }
   }
 
-  const pageContent = document.documentElement.outerHTML;
-
   secretsRegex.forEach(regex => {
     const pattern = new RegExp(Object.values(regex)[0], 'g');
     const key = Object.keys(regex)[0];
@@ -103,7 +103,6 @@
     return new Promise(resolve => {
       chrome.storage.local.get([domain], result => {
         secretsResults =  new Set(result[domain].secrets)
-        console.log('secretsResults',secretsResults);
         resolve(result[domain]);
       });
     });
@@ -117,7 +116,6 @@ function extractDomain(url) {
     return parsedUrl.hostname;
   } catch (error) {
     console.error('Error parsing URL:', error);
-    // Handle error appropriately
     return null;
   }
 }

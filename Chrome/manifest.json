@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Endpoint Finder",
   "version": "1.0",
-  "description": "A simple Firefox extension to find endpoints in a webpage",
+  "description": "A simple Chrome extension to find endpoints in a webpage",
   "permissions": [
     "activeTab",
     "tabs",
