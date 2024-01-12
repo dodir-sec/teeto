@@ -1,0 +1,47 @@
+html {
+    /* height: 100%; */
+    font-family: NotoSansJP-Regular;
+    color: rgb(44, 43, 43);
+}
+
+body {
+    width: 400px;
+    /* height: 100%; */
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #6c6c6c;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f7f7f7;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}

@@ -1,0 +1,54 @@
+.start-container {
+    padding: 0 20px 20px 20px;
+}
+
+.start-btn {
+    padding: 10px;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background-color: #286FF7;
+    cursor: pointer;
+    font-size: 14px;
+    color: white;
+    font-family: NotoSansJP-Regular;
+    width: 100%;
+}
+
+.intro {
+    margin-bottom: 30px;
+}
+
+.intro h1 {
+    font-size: 25px;
+    margin: 20px 0;
+}
+
+.intro p {
+    font-size: 15px;
+    color: #6c6c6c;
+}
+
+.intro-use {
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.intro-use p {
+    margin: 0;
+    font-size: 14px;
+    font-family: NotoSansJP-Regular;
+}
+
+
+
+.intro-use ul {
+    font-size: 14px;
+    padding: 0 0 0 30px;
+}
+
+.intro-use h3 {
+    margin: 0;
+}
