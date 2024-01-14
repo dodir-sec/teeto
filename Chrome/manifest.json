@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Endpoint Finder",
+  "name": "Teeto",
   "version": "1.0",
   "description": "A simple Chrome extension to find endpoints in a webpage",
   "permissions": [
