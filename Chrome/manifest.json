@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Teeto",
   "version": "1.0",
-  "description": "A simple Chrome extension to find endpoints in a webpage",
+  "description": "Teeto is a Chrome Extension designed to enhance web application security and development by scanning for and identifying endpoints, secrets, and parameters embedded within web applications.",
   "permissions": [
     "activeTab",
     "tabs",

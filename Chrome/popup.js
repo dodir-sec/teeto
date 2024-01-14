@@ -36,7 +36,7 @@ async function initializeDomainData(domain) {
 
 function loadDomainDataToUI(dataArray, dataType) {
   let resultsDiv = document.getElementById(dataType + "-results");
-  resultsDiv.textContent = ''; 
+  resultsDiv.textContent = '';
 
   if (dataArray && dataArray.length > 0) {
     dataArray.forEach(function (dataObj) {
@@ -161,7 +161,7 @@ async function executeEndpointFinder(tabId) {
   try {
     await chrome.scripting.executeScript({
       target: { tabId: tabId },
-      files: ['endpoint_finder.js'],      
+      files: ['endpoint_finder.js'],
     });
   } catch (error) {
     console.error('Error executing Endpoint Finder Script:', error);
@@ -196,6 +196,8 @@ document.getElementById('clear-results').addEventListener('click', function () {
         document.getElementById('download-all-data').style.display = "none";
         document.getElementById('footer').style.display = "none";
         document.getElementById('scan-again').style.display = "none";
+        document.getElementById('loading-progress').style.display = "none";
+
 
       });
     }
@@ -328,7 +330,7 @@ function appendEndpointToResultsDiv(endpointObj, resultsDiv) {
   a.classList.add('url-link');
   a.textContent = endpointObj.endpoint;
   a.href = endpointObj.endpoint;
-  a.target= '_blank"'
+  a.target = '_blank"'
   a.addEventListener('click', function (e) {
     e.preventDefault();
     chrome.tabs.create({ url: a.href });
