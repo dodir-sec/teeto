@@ -20,10 +20,24 @@ await getDomainData(baseUrl)
     let absoluteUrl = path.startsWith('/') ? baseUrl + path : path;
     getUrlParams(absoluteUrl)
     absoluteUrl = deleteTrailingSlashes(absoluteUrl)
-    const exists = Array.from(pathResults).some(result => result.endpoint === absoluteUrl);
+    const exists = Array.from(pathResults).some(result => removeHttpOrHttps(result.endpoint) === removeHttpOrHttps(absoluteUrl));
     if (!nodeModulesRegex.test(absoluteUrl) && !exists) {
       pathResults.add({ endpoint: window.location.protocol+'//'+absoluteUrl, source: source });
     }
+  }
+
+  function removeHttpOrHttps(inputString) {
+    // Check if the string contains "http://" and remove it
+    if (inputString.includes("http://")) {
+      inputString = inputString.replace("http://", "");
+    }
+  
+    // Check if the string contains "https://" and remove it
+    if (inputString.includes("https://")) {
+      inputString = inputString.replace("https://", "");
+    }
+  
+    return inputString;
   }
 
   function fetchAndTestRegex(scriptSrc) {
@@ -118,7 +132,12 @@ await getDomainData(baseUrl)
 
 function deleteTrailingSlashes(url) {
   if (!url) return url;
-  if (url.charAt(url.length - 1) === '/') {
+  if (
+    url.charAt(url.length - 1) === '/' ||
+    url.charAt(url.length - 1) === '?' ||
+    url.charAt(url.length - 1) === '_' ||
+    url.charAt(url.length - 1) === '.'
+  ) {
     return deleteTrailingSlashes(url.slice(0, -1));
   }
   return url;
