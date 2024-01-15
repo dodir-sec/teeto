@@ -23,7 +23,7 @@ To install Teeto on Chrome locally:
 4. Click on "Load unpacked" and select the cloned Teeto directory.
 5. The Teeto icon should now appear in your browser toolbar.
    
-You can directly install Teeto from the Chrome Web Store: [URL to TEETO on Chrome Web Store](https://chromewebstore.google.com/detail/teeto/jkonpljnfkapenfc)
+You can directly install Teeto from the Chrome Web Store: [TEETO on Chrome Web Store](https://chromewebstore.google.com/detail/teeto/jkonpljnfkapenfc)
 
 ## Usage
 Simply click on the Teeto icon in your browser toolbar and hit the 'Scan' button. Allow the extension to process the webpage data. Note: Do not close the extension during a scan as it may interrupt the process.
