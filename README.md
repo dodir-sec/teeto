@@ -42,13 +42,13 @@ In cases where Teeto seems to be stuck during a scan, particularly on webpages w
 ## Contact
 For support or feedback, please contact dodir.sec@gmail.com
 
+<!-- 
 <sub>
   <sup>
     <strong>Disclaimer:</strong> Teeto is developed for educational and professional use to assist in the identification of potential security vulnerabilities within web applications. Users are urged to employ Teeto ethically and responsibly, with respect for privacy and in compliance with all applicable laws and regulations. The developers of Teeto assume no liability for misuse of this tool or any consequences that arise from its use in violation of ethical standards or legal statutes.
   </sup>
 </sub>
 
-<!-- 
 ## Acknowledgements
 Special thanks to [Contributors/Supporters] for their contributions to this project.
 -->
