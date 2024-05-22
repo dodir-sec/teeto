@@ -15,6 +15,7 @@ async function loadDataForCurrentDomain() {
       loadDomainDataToUI(domainData['endpoints'], 'endpoints');
       loadDomainDataToUI(domainData['secrets'], 'secrets');
       loadDomainDataToUI(domainData['params'], 'params');
+      document.dispatchEvent(new CustomEvent('scanCompleted'));
     } else {
       displayStartContainer();
     }
