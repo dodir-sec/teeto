@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style/main.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <script lang="javascript" src="/xlsx.full.min.js"></script>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-start">
+      <div class="logo">
+        <img src="imgs/logo2.png" alt="">
+      </div>
+      <p class="app-title">Teeto</p>
+    </div>
+    <div class="header-end">
+      <button class="btn" id="scan-again" style="display: none; " title="Scan Again">
+        <i class="ri-search-line"></i>
+        <!-- Scan -->
+      </button>
+      <button class="btn" id="download-all-data" style="display: none; " title="Download All Data">
+        <i class="ri-download-line"></i>
+        <!-- Download -->
+      </button>
+      <button class="btn" id="clear-results" style="display: none; " title="Delete">
+        <!-- <i class="ri-refresh-line"></i> -->
+        <i class="ri-delete-bin-3-line"></i>
+        <!-- Refresh -->
+      </button>
+    </div>
+  </div>
+
+  <div class="main-container">
+
+    <div class="start-container" id="start-container">
+      <div class="intro">
+        <h1>Welcome</h1>
+        <p>Teeto is designed to enhance your penetration testing efforts.</p>
+        <div class="intro-use">
+          <h3>How to use:</h3>
+          <ul>
+            <li> Navigate to Your Desired Webpage
+            </li>
+            <li> Press the 'Scan Page' button
+            </li>
+            <li> The extension will scan the current webpage, fetching URLs, secrets, and parameters.
+            </li>
+            <li> Analyze the extracted data displayed within the extension or exported to your preferred
+              format.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <button class="start-btn" id="find-endpoints">Scan Page</button>
+    </div>
+
+    <div class="data-container" id="data-container" style="display: none; ">
+      <!-- Tab buttons -->
+      <div class="tabs">
+        <button class="tab-button active" data-tab="endpoints">Endpoints</button>
+        <button class="tab-button" data-tab="secrets">Secrets</button>
+        <button class="tab-button" data-tab="params">Parameters</button>
+      </div>
+
+      <!-- URLS Tab -->
+      <div class="tab-content" id="endpoints">
+        <img id="loader" src="imgs/Search.gif" style="display: none; height: 100%; width: 100%;">
+
+        <!-- URLS Results -->
+        <div class="tab-header">
+          <h3>URLS</h3>
+
+          <div class="tab-header-end">
+
+            <div id="dropdown-1" class="dropdown">
+              <div class="selected-option"><i class="ri-menu-3-line"></i></div>
+              <div class="options-container">
+
+                <div id="copy-all">
+                  <i class="ri-file-copy-line"></i>
+                  Copy All
+                </div>
+
+                <div id="export-all">
+                  <i class="ri-file-download-line"></i>
+                  Download CSV
+                </div>
+                <div id="open-all-urls">
+                  <i class="ri-links-line"></i>
+                  Open All URLs
+                </div>
+                <div id="open-all-urls-query">
+                  <i class="ri-links-line"></i>
+                  Open All URLs with query
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="search">
+          <input type="text" id="search-endpoints" class="search-input" placeholder="Search...">
+        </div>
+
+        <div id="endpoints-loader" class="loader" style="display: none;">
+          <img id="loader" src="imgs/Search.gif">
+          <p>Searching For Endpoints...</p>
+        </div>
+
+
+
+        <div id="endpoints-results" style="display: none;">
+        </div>
+      </div>
+
+      <!-- Secrets Tab -->
+      <div class="tab-content" id="secrets" style="display: none;">
+        <!-- Secrets Buttons -->
+
+        <!-- Secrets Results -->
+        <div class="tab-header">
+          <h3>Secrets</h3>
+          <div class="tab-header-end">
+
+            <div id="dropdown-2" class="dropdown">
+              <div class="selected-option"><i class="ri-menu-3-line"></i></div>
+              <div class="options-container">
+                <div id="export-all-secrets">
+                  <i class="ri-file-download-line"></i>
+                  Download CSV
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="search">
+          <input type="text" id="search-secrets" class="search-input" placeholder="Search...">
+        </div>
+
+        <div id="secrets-loader" class="loader" style="display: none;">
+          <img id="loader" src="imgs/Search.gif">
+          <p>Searching For Secrets...</p>
+        </div>
+
+        <div id="secrets-results" style="display: none;">
+        </div>
+      </div>
+
+      <!-- Params Tab -->
+      <div class="tab-content" id="params" style="display: none;">
+        <div class="tab-header">
+          <h3>Parameters</h3>
+          <div class="tab-header-end">
+
+            <div id="dropdown-3" class="dropdown">
+              <div class="selected-option"><i class="ri-menu-3-line"></i></div>
+              <div class="options-container">
+                <div id="copy-params-query">
+                  <!-- Options will be populated here -->
+                  <i class="ri-file-copy-line"></i>
+                  Copy as query
+                </div>
+                <div id="copy-all-params">
+                  <!-- Options will be populated here -->
+                  <i class="ri-file-copy-line"></i>
+                  Copy All
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="search">
+          <input type="text" id="search-params" class="search-input" placeholder="Search...">
+        </div>
+
+        <div id="params-loader" class="loader" style="display: none;">
+          <img id="loader" src="imgs/Search.gif">
+          <p>Searching For Parameters...</p>
+        </div>
+
+        <div id="params-results" style="display: none;">
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container-end">
+      <div class="loading-progress" id="loading-progress" style="display: none; ">
+        <p>Still loading, please don't close the page...</p>
+      </div>
+      <div id="copy-msg" class="copied"> Copied</div>
+      <!-- <div id="copy-msg" style="display: none; "> Copied</div> -->
+    </div>
+
+  </div>
+
+
+  <div class="footer" id="footer" style="display: none; ">
+    <div class="footer-start">
+      <p>Teeto - 2024</p>
+    </div>
+    <div class="footer-end">
+
+      <a class="donate" href="https://www.buymeacoffee.com/dodirsec" target="_blank">
+        <p class="donate-img">☕</p>
+        Buy me a coffee
+      </a>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+  <script src="dropdown.js"></script>
+  <script src="tabs.js"></script>
+  <script src="search.js"></script>
+
+
+</body>
+
+</html>

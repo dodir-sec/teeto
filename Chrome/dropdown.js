@@ -1,8 +1,10 @@
-document.addEventListener('DOMContentLoaded', async function () {
+document.addEventListener('scanCompleted', async function () {
   initializeDropdowns(['dropdown-1', 'dropdown-2', 'dropdown-3']);
   const domain = await getCurrentDomain();
   setupDomainSpecificListeners(domain);
 });
+
+
 
 async function getCurrentDomain() {
   return new Promise((resolve, reject) => {
@@ -44,6 +46,8 @@ async function setupDomainSpecificListeners(domain) {
     document.getElementById('copy-all-params').addEventListener('click', () => copyToClipboard(domainData.params.join('\n')));
     document.getElementById('copy-params-query').addEventListener('click', () => copyParamsAsQuery(domainData.params));
     document.getElementById('open-all-urls').addEventListener('click', () => openAllUrls(domainData.endpoints));
+    document.getElementById('open-all-urls-query').addEventListener('click', () => openAllUrlsQuery(domainData.endpoints, domainData.params));
+
     //Suppoused to be in popup.js TODO: fix
     document.getElementById('download-all-data').addEventListener('click', () => {
       const data = {
@@ -80,7 +84,7 @@ function downloadAllDataInXlsx(data, domainName) {
   }
 
   // Generate and save the file
-  const fileName = `${domainName}-data.xlsx`; 
+  const fileName = `${domainName}-data.xlsx`;
   XLSX.writeFile(workbook, fileName);
 }
 
@@ -105,6 +109,23 @@ function openAllUrls(endpoints) {
     chrome.tabs.create({ url: endpoint.endpoint });
   }
   );
+}
+
+function openAllUrlsQuery(endpoints, params) {
+  if (!endpoints || !Array.isArray(endpoints) || !params || !Array.isArray(params)) {
+    console.error('Endpoints or params are not available or not in expected format.');
+    return;
+  }
+  endpoints.forEach(endpoint => {
+    const url = new URL(endpoint.endpoint);
+    // const queryString = params.map((param, index) => `${encodeURIComponent(param)}=TEETO${index + 1}`).join('&');
+    // url.search = queryString;
+
+    params.forEach((param, index) => {
+      url.searchParams.set(param, `TEETO${index + 1}`);
+    });
+    chrome.tabs.create({ url: url.href });
+  });
 }
 
 function removeExistingListeners() {
@@ -165,11 +186,11 @@ function copyParamsAsQuery(params) {
 }
 
 async function copyToClipboard(text) {
-  try{
+  try {
     await navigator.clipboard.writeText(text)
     document.getElementById('copy-msg').style.display = 'flex';
     setTimeout(() => document.getElementById('copy-msg').style.display = 'none', 1000);
-  }catch(err){
+  } catch (err) {
     error => console.error('Error copying text: ', error)
   }
 }

@@ -93,6 +93,8 @@ document.getElementById('find-endpoints').addEventListener('click', async functi
 
       waitForSecretsResults();
 
+      document.dispatchEvent(new CustomEvent('scanCompleted'));
+
       document.getElementById('scan-again').style.display = "block";
 
 
