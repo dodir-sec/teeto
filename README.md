@@ -22,6 +22,14 @@ To install Teeto on Chrome locally:
 3. Enable "Developer mode" at the top right corner.
 4. Click on "Load unpacked" and select the cloned Teeto directory.
 5. The Teeto icon should now appear in your browser toolbar.
+
+To install Teeto on Firefox locally:
+1. Clone the repository from GitHub: `git clone [repository-url]`
+2. Open Chrome and navigate to `about:debugging`
+3. Click on "This Firefox" (or "This Nightly" on Firefox Nightly) on the left side of the page.
+4. Select all the files directly inside the "Firefox" folder and compress these files into a ZIP file. This is important because Firefox requires the ZIP to contain the extension files at the root level, not nested within a folder.
+5. Click on “Load Temporary Add-on…”: This option can be found at the top of the page. Use the dialog to open the ZIP file you created.
+6. The Teeto icon should now appear in your browser toolbar.
    
 You can directly install Teeto from the Chrome Web Store: [TEETO on Chrome Web Store](https://chromewebstore.google.com/detail/jkonpljnfkapenfcfdhmilkbmnbalnml?hl=en-US&utm_source=ext_sidebar)
 
