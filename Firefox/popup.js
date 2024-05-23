@@ -1,4 +1,7 @@
-document.addEventListener('DOMContentLoaded', async function() {
+
+loadDataForCurrentDomain();
+
+async function loadDataForCurrentDomain() {
   try {
     const domain = await getCurrentTabDomain();
     if (!domain) return;
@@ -13,14 +16,13 @@ document.addEventListener('DOMContentLoaded', async function() {
       loadDomainDataToUI(domainData['secrets'], 'secrets');
       loadDomainDataToUI(domainData['params'], 'params');
       document.dispatchEvent(new CustomEvent('scanCompleted'));
-
     } else {
       displayStartContainer();
     }
   } catch (error) {
     console.error('Error in loadDataForCurrentDomain:', error);
   }
-});
+}
 
 async function initializeDomainData(domain) {
   try {
@@ -91,6 +93,8 @@ document.getElementById('find-endpoints').addEventListener('click', async functi
       await executeSecretsFinder(tabId);
 
       waitForSecretsResults();
+
+      document.dispatchEvent(new CustomEvent('scanCompleted'));
 
       document.getElementById('scan-again').style.display = "block";
 
