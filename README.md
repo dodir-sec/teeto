@@ -32,8 +32,8 @@ To install Teeto on Firefox locally:
 6. The Teeto icon should now appear in your browser toolbar.
    
 You can directly install Teeto from the Chrome or Mozilla Web Store: 
-[TEETO on Chrome Web Store](https://chromewebstore.google.com/detail/jkonpljnfkapenfcfdhmilkbmnbalnml?hl=en-US&utm_source=ext_sidebar)
-[TEETO on Mozilla Web Store](https://addons.mozilla.org/en-US/firefox/addon/teeto/)
+- [TEETO on Chrome Web Store](https://chromewebstore.google.com/detail/jkonpljnfkapenfcfdhmilkbmnbalnml?hl=en-US&utm_source=ext_sidebar)
+- [TEETO on Mozilla Web Store](https://addons.mozilla.org/en-US/firefox/addon/teeto/)
 
 ## Usage
 Simply click on the Teeto icon in your browser toolbar and hit the 'Scan' button. Allow the extension to process the webpage data. Note: Do not close the extension during a scan as it may interrupt the process.
