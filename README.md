@@ -5,7 +5,7 @@
 # TEETO: Web Application Data Scanner
 
 ## Overview
-Teeto is an Extension designed to enhance web application security and development by scanning for and identifying endpoints, secrets, and parameters embedded within web applications.
+Teeto is the ultimate web application scanning extension for Chrome and Firefox. Born out of the frustration of juggling multiple tools for endpoint, secret, and parameter identification, Teeto streamlines the process with a single click. With Teeto, users can effortlessly conduct full scans for embedded data, and conveniently download results for further analysis.
 
 ## Features
 Teeto offers a range of functionalities tailored for developers and security enthusiasts:
